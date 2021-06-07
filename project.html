@@ -1,0 +1,1041 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="widt=device-width,initial-scale=1.0">
+<title>Responsive Video Slider Website</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=chiller:300,400,500,600,700,800,900&display=swap);
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'chiller';
+    font-size: large;
+}
+section{
+    background:#111;
+    min-height:100vh;
+}
+section .bannerVideo{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+section .bannerVideo video{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    opacity:0;
+}
+section .bannerVideo video.active{
+    opacity:1;
+}
+.container{
+    position:relative;
+    padding:0 100px;
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    min-height:100vh;
+}
+.container::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:50%;
+    height:100%;
+    backdrop-filter:blur(10px);
+    box-shadow:10px 0 15px rgba(0,0,0,0.05);
+}
+.container header{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:30px 100px;
+    }
+    .container header .logo{
+        font-weight:1000;
+        text-transform:uppercase;
+        color:#fff;
+        font-size:2em;
+        text-decoration:none;
+    }
+    .container header ul{
+        position:relative;
+        display:flex;
+    }
+    .container header ul li{
+        list-style:none;
+        margin:0 20px;
+    }
+    .container header ul li a{
+        position:relative;
+        text-decoration:2px;
+        font-size:22px;
+        padding:4px 10px;
+        color:#fff;
+    }
+    .container header ul li a:hover,
+    .container header ul li a:active{
+        background:#fff;
+        color:#111;
+    }
+    .container .content{
+        display:flex;
+        justify-content:flex-start;
+        align-items:center;
+    }
+    .container .content .bannerText{
+        position:relative;
+        max-width:700px;
+    }
+    .container .content .bannerText div{
+        display:none;
+        transition:0.5s ease-in-out;
+    }
+    .container .content .bannerText div.active{
+        display:initial;
+    }
+    .container .content .bannerText div h2{
+        color:#fff;
+        font-size:60px;
+        line-height:1em;
+        font-weight:1000;
+    }
+    .container .content .bannerText div p{
+        color:#fff;
+        font-size:40px;
+        margin:20px 0;
+    }
+    .sci{
+       position:absolute;
+       bottom:0;
+       left:0;
+       display:flex;
+       flex-direction:column; 
+    }
+    .sci li{
+        list-style:none;
+    }
+    .sci li a{
+        width:60px;
+        height:60px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#fff;
+    }
+    .sci li a:hover{
+        background:#f5f5f5;
+    }
+    .sci li a img{
+        display:inline-block;
+        max-height:24px;
+    }
+    .controls{
+        position:absolute;
+        bottom:0;
+        right:0;
+        display:flex;
+    }
+    .controls li {
+        width:80px;
+        height:80px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#fff;
+        cursor:pointer;
+    }
+    .controls li:hover{
+        background:#f5f5f5;
+    }
+    .menuIcon{
+        display:none;
+    }
+    @media(max-width:991px)
+    {
+        .container{
+            padding:20px;
+        }
+        .container::before{
+            width:100%;
+        }
+        .container header{
+            padding:10px 20px;
+        }
+        .container .content .bannerText div h2{
+            font-size:3em;
+        }
+        .container .content .bannerText{
+            text-align:center;
+        }
+        .container header ul{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100vh;
+            background:#fff;
+            z-index:1000;
+            display:none;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
+        }
+        .container header .active ul{
+            display:flex;     
+       }
+        .container header ul li{
+            text-align:center;
+            margin:10px;
+        }
+        .container header ul li a{
+            color:#333;
+            font-size:1.5em;
+        }
+        .container header ul li a:hover{
+            color:#f00;
+           }
+           .menuIcon{
+               position:fixed;
+               top:0;
+               right:0;
+               width:50px;
+               height:50px;
+               display:initial;
+               z-index:10000;
+               background:#fff url(hamburger-menu-drawer-three-lines-icon.jpg);
+               background-size:30px;
+               background-repeat:no-repeat;
+               background-position:center;
+               cursor:pointer;
+           }
+           .menuIcon.active{
+               background:#fff url(closebtn.jpg);
+               background-size:25px;
+               background-repeat: no-repeat;
+               background-position:center;
+          }
+          .sci li a{
+        width:50px;
+        height:50px;
+          }
+          .controls li {
+        width:60px;
+        height:60px;
+          }
+     }
+     body{
+         margin:0;
+         padding:0;
+         background:url(flat-web-banner-on-theme-260nw-390491551.jpg);
+         -webkit-background-size: cover;
+         background-size:cover;
+         background-position:center center;
+         height:100vh;
+         width:100%;
+         font-family:'chiller',sans-serif;
+     }
+     .wrapper{
+         width:1170px;
+         margin:5% auto;
+     }
+     .wrapper h2{
+         text-transform:uppercase;
+         font-weight: bold;
+         text-align: center;
+         font-size:60px;
+         color:black;
+         margin:0;
+     }
+     @import url(https://fonts.googleapis.com/css?family=chiller:300,400,500,600,700,800,900&display=swap);
+     *{
+         margin:0;
+         padding:0;
+         box-sizing:border-box;
+         font-family:'chiller',sans-serif;
+     }
+     body{
+         display:center;
+         justify-content:center;
+         align-items:center;
+         min-height:100vh;
+         background:url(travel-tourism-background-famous-world-260nw-316967852.jpg);
+         background-repeat: no-repeat;
+         background-size: cover;
+     }
+     .sample{
+         width:1100px;
+         display:flex;
+         justify-content: space-between;
+         flex-wrap:wrap;
+     }
+     .sample .box{
+         position:relative;
+         width:320px;
+         background:#fff;
+         padding:100px 40px 60px;
+         box-shadow:0 15px 45px rgba(0,0,0,.1);
+     }
+     .sample .box:before{
+         content:'';
+         position:absolute;
+         top:0;
+         left:0;
+         width:100%;
+         height:100%;
+         background:rgb(173, 9, 124);
+         transform:scaleY(0);
+         transform-origin:top;
+         transition: transform 0.5s;
+     }
+     .sample .box:hover:before{
+         transform:scaleY(1);
+         transform-origin:bottom;
+         transition: transform 0.5s;
+     }
+     .sample .box h2{
+         position:absolute;
+         left:40px;
+         top:60px;
+         font-size:4em;
+         font-weight:800;
+         z-index:1;
+         opacity:0.1;
+         transition:0.5s;
+     }
+     .sample .box:hover h2{
+         opacity:1;
+         color:#fff;
+         transform:translateY(-40px);
+     }
+     .sample .box h3{
+         position:relative;
+         font-size:1.5em;
+         z-index:2;
+         color:#333;
+         transition:0.5s;
+     }
+     .sample .box p{
+         position:relative;
+         z-index:2;
+         color:#555;
+         transition:0.5s;
+     }
+     .sample .box:hover h3,
+     .sample .box:hover p{
+         color:#fff;
+     } 
+     .slide{
+         background-color:rgb(173, 9, 124);
+         font-weight: bolder;
+         font-size: larger;
+     }
+     .slide .images{
+         align-items:center;
+         justify-content:center;
+ }
+
+     body{
+        justify-content:center;
+        align-items:center;
+        min-height:100vh;
+     }
+     .data{
+         display:flex;
+         position:relative;
+         justify-content:center;
+         align-items:center;
+         flex-wrap:wrap;
+     }
+     .data .hexagon{
+         position:relative;
+         width:350px;
+         height:400px;
+         margin:50px 20px 70px;
+     }
+     .data .hexagon::before{
+         content:'';
+         position:absolute;
+         bottom:-70px;
+         width:100%;
+         height:60px;
+         background:radial-gradient(rgba(0,0,0,0.15)transparent,transparent);
+         border-radius:50%;
+         transition:.5s;
+     }
+     .data .hexagon:hover::before{
+          opacity:0.8;
+          transform:scale(0.8);
+     }
+     .data .hexagon .shape{
+         position:absolute;
+         top:0;
+         left:0;
+         width:100%;
+         height:100%;
+         background:#000;
+         clip-path:polygon(0 25%,50% 0,100% 25%,100% 75%,50% 100%,0 75%);
+         transition:0.5s;
+     }
+
+     .data .hexagon:hover .shape{
+         transform:translate(-30px);
+     }
+     .data .hexagon .shape img{
+         position:absolute;
+         top:0;
+         left:0;
+         width:100%;
+         height:100%;
+         object-fit:cover;
+     }
+     .data .hexagon .shape .content{
+         position:absolute;
+         top:0;
+         left:0;
+         width:100%;
+         height:100%;
+         display:flex;
+         justify-content:center;
+         align-items:center;
+         padding:20px;
+         text-align:center;
+         background:linear-gradient(45deg,#d106b6,rgba(212, 4, 195, 0.5));
+         color:#fff;
+         opacity:0;
+         transition:0.5s;
+         }
+         .data .hexagon:hover .shape .content{
+             opacity:1;
+         }
+         *{
+             margin:0px;
+             padding:0px;
+             box-sizing:border-box;
+         }
+         body{
+             font-family:'chiller',sans-serif;
+         }
+         .clr{
+             clear:both;
+         }
+         .footer-wrapper{
+             width:100%;
+             height:auto;
+             min-height:250px;
+             margin:auto;
+             background-image:url(unnamed.jpg);
+             background-position: center;
+             background-repeat:no-repeat;
+             background-attachment: fixed;
+             background-size: cover;
+             overflow: hidden;
+         }
+         .row{
+             display:flex;
+             flex-wrap:nowrap;
+         }
+         .footer-social-icons{
+             width:100%;
+             height:auto;
+             margin:auto;
+             padding-top:20px;
+             margin-bottom:40px;
+         }
+         .footer-social-icons ul{
+             margin:0px;
+             padding:0px;
+             text-align: center;
+         }
+         .footer-social-icons ul li{
+             display:inline-block;
+             margin-right:2px;
+             width:36px;
+             height:36px;
+             text-align:center;
+         }
+         .footer-social-icons ul li a{
+             color:#fff;
+             display: block;
+             font-size:22px;
+             text-shadow:0px 0px 5px rgba(0,0,0,0.75);
+         }
+         .footer-social-icons ul li a i{
+             line-height:36px;
+         }
+         .footer-social-icons ul li:nth-child(1){
+             background:#3b5998;
+         }
+         .footer-social-icons ul li:nth-child(2){
+             background:#1da1f2;
+         }
+         .footer-social-icons ul li:nth-child(3){
+             background:#25d366;
+         }
+         .footer-social-icons ul li:nth-child(4){
+             background:#c32aa3;
+         }
+         .footer-social-icons ul li:nth-child(5){
+             background:#007bb5;
+         }
+         .footer-social-icons ul li:nth-child(6){
+             background:#ff0000;
+         }
+         .footer-social-icons ul li:nth-child(7){
+             background:#db4437;
+         }
+         .footer-social-icons ul li:nth-child(8){
+             background:#00aff0;
+         }
+         .footer-social-icons ul li:nth-child(9){
+             background:#09b83e;
+         }
+         .footer-social-icons ul li:nth-child(10){
+             background:#bd081c;
+         }
+         .footer-mid-part{
+             width:100%;
+             height:auto;
+             margin:auto;
+         }
+         .footer-section-one{
+             width:100%;
+             height:auto;
+             margin:auto;
+             padding:20px 20px;
+             background:rgba(255,255,255,.1);
+         }
+         .footer-section-two{
+             width:100%;
+             height:auto;
+             width:auto;
+             padding:20px 20px;
+            }
+         .footer-section-three{
+             width:100%;
+             height:auto;
+             width:auto;
+             padding:20px 20px;
+             background:rgba(255,255,255,.1);
+         }
+         .footer-heading{
+             width:100%;
+             height:auto;
+             margin:auto;
+         }
+         .footer-heading h2{
+             font-size:22px;
+             text-align:left;
+             color:#fff;
+             text-transform:uppercase;
+             margin:0px;
+         }
+         .footer-contact-box{
+             width:100%;
+             height:auto;
+             margin:auto;
+             margin-top:13px;
+         }
+         .footer-contact-icon{
+             width:25px;
+             height:25px;
+             float:left;
+         }
+         .footer-contact-text{
+             width:85%;
+             height:auto;
+             float:left;
+             margin-left:10px;
+         }
+         .footer-contact-text p{
+             font-size:20px;
+             text-align:left;
+             color:#fff;
+             cursor:pointer;
+              }
+         .footer-contact-text p a{
+             font-size:20px;
+             text-align:left;
+             color:#fff;
+             text-decoration:none;
+              }
+          .footer-contact-text p:hover{
+                  color:#f00;
+              }
+           .footer-contact-box:hover .footer-contact-icon i{
+               color:#f00;
+           }
+           .footer-contact-box:hover .footer-contact-text p a{
+               color:#f00;
+           }
+           .footer-link{
+               width:100%;
+               height:auto;
+               margin:auto;
+               margin-top:20px;
+           }
+           .footer-link ul{
+               margin:0px;
+               padding:0px;
+           }
+           .footer-link ul li{
+               list-style-type:none;
+               text-align: center;
+               padding-top: 5px;
+           }
+           .footer-link ul li a{
+               font-size:20px;
+               color:#fff;
+               text-decoration: none;
+               text-transform:capitalize;
+           }
+           .footer-link ul li a:hover{
+               color:#f00;
+           }
+           .footer-section-two .footer-heading h2{
+               text-align:center;
+           }
+           .footer-form{
+               width:100%;
+               height:auto;
+               margin:auto;
+               margin-top:20px;
+           }
+           .footer-form-box{
+               width:100%;
+               height:auto;
+               margin:auto;
+               margin-top:20px;
+           }
+           .footer-form-style{
+               width:100%;
+               height:40px;
+               border-left:none;
+               border-top:none;
+               border-right:none;
+               border-bottom:1px solid rgba(255,255,255,.1);
+               background:transparent;
+               font-size:20px;
+               text-align: left;
+               padding: 0px 10px;
+               color:#fff;
+           }
+           .footer-form-submit-style{
+               width:129px;
+               height:35px;
+               font-size:20px;
+               text-align:center;
+               color:#fff;
+               text-transform:uppercase;
+               background:rgba(255,255,255,.5);
+               border:none;
+               margin-top:1px;
+           }
+         
+
+     </style>
+     
+<body>
+   <section>
+    <div class="bannerVideo" id="slideShow">
+        <video src="video_Trim.mp4" autoplay muted loop class="active"></video>
+        <video src="video (1)_Trim.mp4" autoplay muted loop></video>
+        <video src="production ID_5077164_Trim.mp4" autoplay muted loop></video>
+        <video src="production ID_4730814.mp4" autoplay muted loop></video>
+    </div>
+<div class="container">
+<header id="navbar active">
+<a href="#" class="logo">Travel</a>
+<ul>
+<li><a href="#" class="active">Home</a></li>
+<li><a href="#">Destination</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+<span class="menuIcon"onclick="toggleMenu();"></span>
+</header>
+<div class="content">
+<div class="bannerText" id="slideShowText">
+<div class="active">
+<h2>Paris</h2>
+<p>“City of Light” or the “City of Love,” the streets of Paris overflow with culture, art, beauty, and history. ... Paris was originally a Roman City called “Lutetia.”</p>
+</div>
+<div>
+<h2>Switzerland</h2>
+<p>Switzerland remains wealthy and orderly, but its mountain-walled valleys are far more likely to echo the music of a local rock band than a yodel or an alphorn</p>
+</div>
+<div>
+<h2>New zealand</h2>
+<p>New Zealand (NZ) is an island country in the South Pacific Ocean located about 2,000 km (1,300 mi) southeast of Australia. The island-nation consists of some smaller islands and two main islands</p>
+</div>
+<div>
+<h2>maldives</h2>
+<p>The Maldives archipelago consists of 1190 tiny islands scattered across the Indian Ocean. Only 185 of these islands are inhabited, while the others are used largely for tourism and agriculture.</p>
+</div>
+</div>
+</div>
+<ul class="sci">
+    <li><a href="#"><img src="th (1).jpg"></a></li>
+    <li><a href="#"><img src="twitter-email-signature-icon-26 (2).jpg"></a></li>
+    <li><a href="#"><img src="twitter-email-signature-icon-26 (3).jpg"></a></li>
+    </ul>
+
+    <ul class="controls">
+        <li onclick="prevSlide();prevSlideText();"><img src="th (4).jpg"></li>
+        <li onclick="nextSlide();nextSlideText();"><img src="th (5).jpg"></li>
+    </ul>
+</div>
+</section>
+<script>
+    const slideShow=document.getElementById('slideShow');
+    const slides=slideShow.getElementsByTagName('video');
+    var  index=0;
+
+
+    function nextSlide(){
+        slides[index].classList.remove('active');
+        index=(index+1)%slides.length;
+        slides[index].classList.add('active');
+    }
+    function prevSlide(){
+        slides[index].classList.remove('active');
+        index=(index-1+slides.length) % slides.length;
+        slides[index].classList.add('active');
+    }
+    
+
+
+    const slideShowText=document.getElementById('slideShowText');
+    const slidesText=slideShowText.getElementsByTagName('div');
+    var  i=0;
+    function nextSlideText(){
+        slidesText[i].classList.remove('active');
+        i=(i+1)%slidesText.length;
+        slidesText[i].classList.add('active');
+    }
+    function prevSlideText(){
+        slidesText[i].classList.remove('active');
+        i=(i-1+slidesText.length)%slidesText.length;
+        slidesText[i].classList.add('active');
+    }
+
+    function toggleMenu(){
+        const menuIcon=document.querySelector('.menuIcon');
+        const navbar=document.getElementId('navbar');
+        menuIcon.classList.toggle('active');
+        navbar.classList.toggle('active');
+    }
+</script>
+<div class="wrapper">
+    <h2>Small group travel that makes  difference</h2>
+   <div class="sample">
+        <div class="box">
+            <h2>01</h2>
+            <h3>travels except</h3>
+            <p>31 years, 7 continents, thousands of trips; we’re the adventure travel experts.</p>
+       </div>
+       <div class="box">
+        <h2>02</h2>
+        <h3>b corp</h3>
+        <p>The world’s largest travel B Corporation, dedicated to being better.</p>
+   </div>
+   <div class="box">
+    <h2>03</h2>
+    <h3>responsive travel</h3>
+    <p>The leader in responsible, ethical small group adventures since 1989.</p>
+</div>
+    </div>
+    <div class="slide">
+        <div class="images">
+            <p>link to view slider</p>
+            <a href="slider/slider.html">SLIDER</a>
+        </div>
+    </div>
+
+    <div class="data">
+        <div class="hexagon">
+            <div class="shape">
+            <img src="Arc-de-Triomphe-Photo-credit-Architecturaldigest.com_-1.jpg">
+            <div class="content">
+                <div>
+                    <h2>01</h2>
+                    <p>A sumptuous palace that was once the home of France's kings, the Louvre is the most important of Paris' top museums. </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="Notre-Dame.jpg">
+            <div class="content">
+            <div>
+                <h2>02</h2>
+                <p>Notre-Dame stands in the heart of Paris on the Île-de-la-Cité next to the Latin Quarter.</p>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="Palais-du-Louvre.jpg">
+            <div class="content">
+                <div>
+                    <h2>03</h2> 
+                    <p> Louvre, in full Louvre Museum or French Musée du Louvre is the world’s most-visited art museum, with a collection that spans work from ancient civilizations to the mid-19th century.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="1580729152_shutterstock_178807262.jpg.jpg">
+            <div class="content">
+                <div>
+                    <h2>01</h2>
+                    <p>Interlaken is a quintessential Swiss town that sits in the lap of the majestic Alps.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="switzerland-matterhorn.jpg">
+            <div class="content">
+                <div>
+                    <h2>02</h2>
+                    <p>The Matterhorn, Switzerland's iconic pointed peak is one of the highest mountains in the Alps. </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="1582807095_zurich.jpg.jpg">
+            <div class="content">
+                <div>
+                    <h2>03</h2>
+                    <p>Zurich is a place that conjures up images of breathtaking & unspoiled beauty of the stunning Swiss meadows, alpine forests, mighty Alps, and pristine mountain lakes.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="new-zealand-north-island-bay-of-islands.jpg">
+            <div class="content">
+                <div>
+                    <h2>01</h2>
+                    <p>A three-hour drive north of Auckland, the beautiful Bay of Islands is one of the most popular vacation destinations in the country.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="new-zealand-south-island-fiordland-national-park.jpg">
+            <div class="content">
+                <div>
+                    <h2>02</h2>
+                    <p>A World Heritage Site, Fiordland National Park protects some of the most spectacular scenery in the country. </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="new-zealand-south-island-queenstown.jpg">
+            <div class="content">
+                <div>
+                    <h2>03</h2>
+                    <p>Queenstown is New Zealand's adventure capital and one of the country's top destinations for international visitors. </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="1598095872_male_maldives.jpg.webp">
+            <div class="content">
+                <div>
+                    <h2>01</h2>
+                    <p>Male City is the capital of the Maldives and sits at the southern rim of North Malé Atoll.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="1598095873_COMO_Cocoa_Island.jpg.webp">
+            <div class="content">
+                <div>
+                    <h2>02</h2>
+                    <p>The clear blue water and soft white sandy shores are something that would just touch your soul and lure you during your visit to this exquisite island.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="hexagon">
+            <div class="shape">
+            <img src="1598095967_shutterstock_261976928.jpg.jpg">
+            <div class="content">
+                <div>
+                    <h2>03</h2>
+                    <p>Tourists also prefer touring the local villages and interacting with the natives to know more about the beautiful Maldivian culture.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <footer>
+
+        <div class="footer-wrapper">
+            <div class="container-fluid">
+                <div class="footer-social-icons">
+                <ul>
+                        <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-Linkedin"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-skype"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-wechat"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                    </ul>
+                    </div>
+                    
+                    <div class="footer-mid-part">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                <div class="footer-section-one">
+                                    <div class="footer-heading"><h2>Contact Us</h2></div>
+                            <div class="footer-contact-box">
+                                <div class="footer-contact-icon"><i class="fa fa-map-marker"></i></div>
+                                <div class="footer-contact-text">
+                                    <p>Address:plot no:5,gandhi nagar,pallavaram,chennai-600117.</p>
+                                </div>
+                            <div class="clr"></div>
+                            </div>
+
+                            <div class="footer-contact-box">
+                                <div class="footer-contact-icon"><i class="fa fa-phone"></i></div>
+                                <div class="footer-contact-text">
+                                    <p><a href="tel:+1539274912">+1539274912</a></p>
+                                </div>
+                            <div class="clr"></div>
+                            </div>
+
+                            <div class="footer-contact-box">
+                                <div class="footer-contact-icon"><i class="fa fa-fax"></i></div>
+                                <div class="footer-contact-text">
+                                    <p><a href="fax:+1539274912">+1539274912</a></p>
+                                </div>
+                            <div class="clr"></div>
+                            </div>
+
+                            <div class="footer-contact-box">
+                                <div class="footer-contact-icon"><i class="fa fa-envelope"></i></div>
+                                <div class="footer-contact-text">
+                                    <p><a href="mailto:info@travellingtourism.com">info@travellingtourism.com</a></p>
+                                </div>
+                            <div class="clr"></div>
+                            </div>
+                            <div class="footer-contact-box">
+                                <div class="footer-contact-icon"><i class="fa fa-globe"></i></div>
+                                <div class="footer-contact-text">
+                                    <p><a href="http://www.travellingtourism.com">http://www.travellingtourism.com</a></p>
+                                </div>
+                            <div class="clr"></div>
+                            </div>
+                            
+                           
+
+
+                            </div>
+
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                <div class="footer-section-two">
+                                    <div class="footer-heading"><h2>Quick Link</h2></div>
+                                    <div class="footer-link">
+                                        <ul>
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">About us</a></li>
+                                            <li><a href="#">web Services</a></li>
+                                            <li><a href="#">Graphic Design</a></li>
+                                            <li><a href="#">Web marketing</a></li>
+                                            <li><a href="#">Services</a></li>
+                                            <li><a href="#">training</a></li>
+                                            <li><a href="#">Contact us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                <div class="footer-section-two">
+                                    <div class="footer-heading"><h2>Our Services</h2></div>
+                                    <div class="footer-link">
+                                        <ul>
+                                            <li><a href="#">Linux Hosting</a></li>
+                                            <li><a href="#">Windows Hosting</a></li>
+                                            <li><a href="#">Domain registeration</a></li>
+                                            <li><a href="#">SEO Promotion</a></li>
+                                            <li><a href="#">Our Plans</a></li>
+                                            <li><a href="#">Latest Offers</a></li>
+                                            <li><a href="#">Sitemap</a></li>
+                                            <li><a href="#">Website mainteinance</a></li>
+                                        </ul>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="footer-section-one">
+                                <div class="footer-heading"><h2>Get in Touch</h2></div>
+                                <div class="footer-form">
+                                    <form method="post" action="#">
+                                        <div class="footer-form-box">
+                                            <input type="text" class="footer-form-style" placeholder="name">
+                                        </div>
+                                        <div class="footer-form-box">
+                                            <input type="text" class="footer-form-style" placeholder="email">
+                                        </div>
+                                        <div class="footer-form-box">
+                                            <input type="text" class="footer-form-style" placeholder="Phone number">
+                                        </div>
+                                        <div class="footer-form-box">
+                                            <input type="submit" class="footer-form-submit-style" value="SUBMIT">
+                                        </div>
+                                    </form>
+                                </div>
+                          </div>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
+
+
+                   
+            </div>
+        </footer>
+</body>
+</html>
